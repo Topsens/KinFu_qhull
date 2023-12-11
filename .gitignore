@@ -61,6 +61,9 @@ libq
 *.suo
 *.user
 *.ilk
+*.sln
+*.vcxproj
+*.vcxproj.filters
 
 # CVS files
 CVS/*
@@ -71,4 +74,5 @@ CVS/*
 
 # Other files
 working/
+.vscode/
 

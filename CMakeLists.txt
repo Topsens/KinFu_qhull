@@ -67,8 +67,8 @@
 # $Id: //main/2019/qhull/CMakeLists.txt#21 $$Change: 3039 $
 # $DateTime: 2020/09/03 21:26:22 $$Author: bbarber $
 
+cmake_minimum_required(VERSION 3.15)
 project(qhull)
-cmake_minimum_required(VERSION 3.0)
 
 # Define qhull_VERSION in README.txt, Announce.txt, qh-get.htm, CMakeLists.txt
 #   qhull-zip.sh (twice), qhull-wiki.md, qhull-news.htm, File_id.diz, index.htm
@@ -342,7 +342,7 @@ set(qhull_SHAREDR qhull_r)
 set(qhull_SHARED libqhull)  # Temporarily avoid name conflict with qhull executable
 set(qhull_SHAREDP qhull_p)  # libqhull and qhull_p are deprecated, use qhull_r instead
 
-set(qhull_TARGETS_APPLICATIONS qhull rbox qconvex qdelaunay qvoronoi qhalf)
+# set(qhull_TARGETS_APPLICATIONS qhull rbox qconvex qdelaunay qvoronoi qhalf)
 set(qhull_TARGETS_STATIC ${qhull_CPP} ${qhull_STATIC} ${qhull_STATICR})
 set(qhull_TARGETS_SHARED ${qhull_SHAREDR})
 
@@ -518,59 +518,59 @@ endif()
 # If LINK_APPS_SHARED, applications are linked to reentrant qhull
 # ---------------------------------------
 
-if(${LINK_APPS_SHARED})
-    add_executable(qconvex src/qconvex/qconvex_r.c)
-    target_link_libraries(qconvex ${qhull_SHAREDR})
-    set_target_properties(qconvex PROPERTIES
-        COMPILE_DEFINITIONS "${qconvex_DEFINES}")
+# if(${LINK_APPS_SHARED})
+#     add_executable(qconvex src/qconvex/qconvex_r.c)
+#     target_link_libraries(qconvex ${qhull_SHAREDR})
+#     set_target_properties(qconvex PROPERTIES
+#         COMPILE_DEFINITIONS "${qconvex_DEFINES}")
 
-    add_executable(qdelaunay src/qdelaunay/qdelaun_r.c)
-    target_link_libraries(qdelaunay ${qhull_SHAREDR})
-    set_target_properties(qdelaunay PROPERTIES
-        COMPILE_DEFINITIONS "${qdelaunay_DEFINES}")
+#     add_executable(qdelaunay src/qdelaunay/qdelaun_r.c)
+#     target_link_libraries(qdelaunay ${qhull_SHAREDR})
+#     set_target_properties(qdelaunay PROPERTIES
+#         COMPILE_DEFINITIONS "${qdelaunay_DEFINES}")
 
-    add_executable(qhalf src/qhalf/qhalf_r.c)
-    target_link_libraries(qhalf ${qhull_SHAREDR})
-    set_target_properties(qhalf PROPERTIES
-        COMPILE_DEFINITIONS "${qhalf_DEFINES}")
+#     add_executable(qhalf src/qhalf/qhalf_r.c)
+#     target_link_libraries(qhalf ${qhull_SHAREDR})
+#     set_target_properties(qhalf PROPERTIES
+#         COMPILE_DEFINITIONS "${qhalf_DEFINES}")
 
-    add_executable(qhull src/qhull/unix_r.c)
-    target_link_libraries(qhull ${qhull_SHAREDR})
-    set_target_properties(qhull PROPERTIES
-        COMPILE_DEFINITIONS "${qhull_DEFINES}")
+#     add_executable(qhull src/qhull/unix_r.c)
+#     target_link_libraries(qhull ${qhull_SHAREDR})
+#     set_target_properties(qhull PROPERTIES
+#         COMPILE_DEFINITIONS "${qhull_DEFINES}")
 
-    add_executable(qvoronoi src/qvoronoi/qvoronoi_r.c)
-    target_link_libraries(qvoronoi ${qhull_SHAREDR})
-    set_target_properties(qvoronoi PROPERTIES
-        COMPILE_DEFINITIONS "${qvoronoi_DEFINES}")
+#     add_executable(qvoronoi src/qvoronoi/qvoronoi_r.c)
+#     target_link_libraries(qvoronoi ${qhull_SHAREDR})
+#     set_target_properties(qvoronoi PROPERTIES
+#         COMPILE_DEFINITIONS "${qvoronoi_DEFINES}")
 
-    add_executable(rbox src/rbox/rbox_r.c)
-    target_link_libraries(rbox ${qhull_SHAREDR})
-    set_target_properties(rbox PROPERTIES
-        COMPILE_DEFINITIONS "${rbox_DEFINES}")
-else()
-    if(NOT ${BUILD_STATIC_LIBS})
-        message(FATAL_ERROR, " Nothing to build -- BUILD_SHARED_LIBS=OFF and BUILD_STATIC_LIBS=OFF")
-    endif()
+#     add_executable(rbox src/rbox/rbox_r.c)
+#     target_link_libraries(rbox ${qhull_SHAREDR})
+#     set_target_properties(rbox PROPERTIES
+#         COMPILE_DEFINITIONS "${rbox_DEFINES}")
+# else()
+#     if(NOT ${BUILD_STATIC_LIBS})
+#         message(FATAL_ERROR, " Nothing to build -- BUILD_SHARED_LIBS=OFF and BUILD_STATIC_LIBS=OFF")
+#     endif()
 
-    add_executable(qconvex src/qconvex/qconvex.c)
-    target_link_libraries(qconvex ${qhull_STATIC})
+#     add_executable(qconvex src/qconvex/qconvex.c)
+#     target_link_libraries(qconvex ${qhull_STATIC})
 
-    add_executable(qdelaunay src/qdelaunay/qdelaun.c)
-    target_link_libraries(qdelaunay ${qhull_STATIC})
+#     add_executable(qdelaunay src/qdelaunay/qdelaun.c)
+#     target_link_libraries(qdelaunay ${qhull_STATIC})
 
-    add_executable(qhalf src/qhalf/qhalf.c)
-    target_link_libraries(qhalf ${qhull_STATIC})
+#     add_executable(qhalf src/qhalf/qhalf.c)
+#     target_link_libraries(qhalf ${qhull_STATIC})
 
-    add_executable(qhull src/qhull/unix_r.c)
-    target_link_libraries(qhull ${qhull_STATICR})
+#     add_executable(qhull src/qhull/unix_r.c)
+#     target_link_libraries(qhull ${qhull_STATICR})
 
-    add_executable(qvoronoi src/qvoronoi/qvoronoi.c)
-    target_link_libraries(qvoronoi ${qhull_STATIC})
+#     add_executable(qvoronoi src/qvoronoi/qvoronoi.c)
+#     target_link_libraries(qvoronoi ${qhull_STATIC})
 
-    add_executable(rbox src/rbox/rbox.c)
-    target_link_libraries(rbox ${qhull_STATIC})
-endif()
+#     add_executable(rbox src/rbox/rbox.c)
+#     target_link_libraries(rbox ${qhull_STATIC})
+# endif()
 
 # #@# 20
 # ---------------------------------------
@@ -578,36 +578,36 @@ endif()
 # Define testqset_r linked to qset_r.o, mem_r.o, and usermem.o
 # ---------------------------------------
 
-add_executable(testqset ${testqset_SOURCES})
-add_executable(testqset_r ${testqsetr_SOURCES})
+# add_executable(testqset ${testqset_SOURCES})
+# add_executable(testqset_r ${testqsetr_SOURCES})
 
 # ---------------------------------------
 # Define user_eg linked to reentrant qhull shared library
 # ---------------------------------------
 
-add_executable(user_eg src/user_eg/user_eg_r.c)
+# add_executable(user_eg src/user_eg/user_eg_r.c)
 
-if(${BUILD_SHARED_LIBS})
-    target_link_libraries(user_eg ${qhull_SHAREDR})
-    set_target_properties(user_eg PROPERTIES
-	COMPILE_DEFINITIONS "${user_eg_DEFINES}")
-else()
-    target_link_libraries(user_eg ${qhull_STATICR})
-endif()
+# if(${BUILD_SHARED_LIBS})
+#     target_link_libraries(user_eg ${qhull_SHAREDR})
+#     set_target_properties(user_eg PROPERTIES
+# 	COMPILE_DEFINITIONS "${user_eg_DEFINES}")
+# else()
+#     target_link_libraries(user_eg ${qhull_STATICR})
+# endif()
 
 # ---------------------------------------
 # Define user_eg2 linked to reentrant qhull static library
 # ---------------------------------------
 
-add_executable(user_eg2 src/user_eg2/user_eg2_r.c)
+# add_executable(user_eg2 src/user_eg2/user_eg2_r.c)
 
-if(${BUILD_STATIC_LIBS})
-    target_link_libraries(user_eg2 ${qhull_STATICR})
-else()
-    target_link_libraries(user_eg2 ${qhull_SHAREDR})
-    set_target_properties(user_eg2 PROPERTIES
-	COMPILE_DEFINITIONS "${user_eg2_DEFINES}")
-endif()
+# if(${BUILD_STATIC_LIBS})
+#     target_link_libraries(user_eg2 ${qhull_STATICR})
+# else()
+#     target_link_libraries(user_eg2 ${qhull_SHAREDR})
+#     set_target_properties(user_eg2 PROPERTIES
+# 	COMPILE_DEFINITIONS "${user_eg2_DEFINES}")
+# endif()
 
 # ---------------------------------------
 # Define user_eg3 linked to qhullcpp and qhullstatic_r static libraries
@@ -616,62 +616,62 @@ endif()
 #   user_eg3 and qhullcpp must be compiled with the same compiler for setjmp/longjmp
 # ---------------------------------------
 
-if(${BUILD_STATIC_LIBS})
-    add_executable(user_eg3 src/user_eg3/user_eg3_r.cpp)
-    # qhull_STATICR must be last, otherwise qh_fprintf,etc. are not loaded from qhull_CPP
-    target_link_libraries(user_eg3 ${qhull_CPP} ${qhull_STATICR})
-endif()
+# if(${BUILD_STATIC_LIBS})
+#     add_executable(user_eg3 src/user_eg3/user_eg3_r.cpp)
+#     # qhull_STATICR must be last, otherwise qh_fprintf,etc. are not loaded from qhull_CPP
+#     target_link_libraries(user_eg3 ${qhull_CPP} ${qhull_STATICR})
+# endif()
 
 # ---------------------------------------
 # qhullp is qhull/unix.c linked to unsuported qh_QHpointer libqhull_p
 # Included for testing qh_QHpointer 
 # ---------------------------------------
 
-add_executable(qhullp EXCLUDE_FROM_ALL src/qhull/unix.c)
-target_link_libraries(qhullp ${qhull_SHAREDP})
-set_target_properties(qhullp PROPERTIES
-    COMPILE_DEFINITIONS "${qhullp_DEFINES}")
+# add_executable(qhullp EXCLUDE_FROM_ALL src/qhull/unix.c)
+# target_link_libraries(qhullp ${qhull_SHAREDP})
+# set_target_properties(qhullp PROPERTIES
+#     COMPILE_DEFINITIONS "${qhullp_DEFINES}")
 
 # ---------------------------------------
 # user_egp is user_eg/user_eg.c linked to unsuported qh_QHpointer libqhull_p
 # Included for compatibility with qhull-2012.1 
 # ---------------------------------------
 
-add_executable(user_egp EXCLUDE_FROM_ALL src/user_eg/user_eg.c)
-target_link_libraries(user_egp ${qhull_SHAREDP})
-set_target_properties(user_egp PROPERTIES
-    COMPILE_DEFINITIONS "${user_egp_DEFINES}")
+# add_executable(user_egp EXCLUDE_FROM_ALL src/user_eg/user_eg.c)
+# target_link_libraries(user_egp ${qhull_SHAREDP})
+# set_target_properties(user_egp PROPERTIES
+#     COMPILE_DEFINITIONS "${user_egp_DEFINES}")
 
 # ---------------------------------------
 # Define test
 # ---------------------------------------
 
-enable_testing()
-add_test(NAME testqset
-   COMMAND ./testqset 10000)
-add_test(NAME testqset_r
-   COMMAND ./testqset_r 10000)
-add_test(NAME smoketest
-   COMMAND sh -c "./rbox D4 | ./qhull Tv")
-add_test(NAME rbox-10-qhull
-   COMMAND sh -c "./rbox 10 | ./qhull Tv")
-add_test(NAME rbox-10-qconvex
-   COMMAND sh -c "./rbox 10 | ./qconvex Tv")
-add_test(NAME rbox-10-qdelaunay
-   COMMAND sh -c "./rbox 10 | ./qdelaunay Tv")
-add_test(NAME rbox-10-qhalf
-   COMMAND sh -c "./rbox 10 | ./qconvex FQ FV n Tv | ./qhalf Tv")
-add_test(NAME rbox-10-qvoronoi
-   COMMAND sh -c "./rbox 10 | ./qvoronoi Tv")
-add_test(NAME user_eg
-   COMMAND sh -c "./user_eg")
-add_test(NAME user_eg2
-   COMMAND sh -c "./user_eg2")
+# enable_testing()
+# add_test(NAME testqset
+#    COMMAND ./testqset 10000)
+# add_test(NAME testqset_r
+#    COMMAND ./testqset_r 10000)
+# add_test(NAME smoketest
+#    COMMAND sh -c "./rbox D4 | ./qhull Tv")
+# add_test(NAME rbox-10-qhull
+#    COMMAND sh -c "./rbox 10 | ./qhull Tv")
+# add_test(NAME rbox-10-qconvex
+#    COMMAND sh -c "./rbox 10 | ./qconvex Tv")
+# add_test(NAME rbox-10-qdelaunay
+#    COMMAND sh -c "./rbox 10 | ./qdelaunay Tv")
+# add_test(NAME rbox-10-qhalf
+#    COMMAND sh -c "./rbox 10 | ./qconvex FQ FV n Tv | ./qhalf Tv")
+# add_test(NAME rbox-10-qvoronoi
+#    COMMAND sh -c "./rbox 10 | ./qvoronoi Tv")
+# add_test(NAME user_eg
+#    COMMAND sh -c "./user_eg")
+# add_test(NAME user_eg2
+#    COMMAND sh -c "./user_eg2")
    
-if(${BUILD_STATIC_LIBS})
-    add_test(NAME user_eg3
-       COMMAND sh -c "./user_eg3 rbox '10 D2' '2 D2' qhull 's p' facets")
-endif()
+# if(${BUILD_STATIC_LIBS})
+#     add_test(NAME user_eg3
+#        COMMAND sh -c "./user_eg3 rbox '10 D2' '2 D2' qhull 's p' facets")
+# endif()
 
 # ---------------------------------------
 # Define install
@@ -750,11 +750,11 @@ install(FILES ${libqhull_HEADERS}    DESTINATION ${INCLUDE_INSTALL_DIR}/libqhull
 install(FILES src/libqhull/DEPRECATED.txt DESTINATION ${INCLUDE_INSTALL_DIR}/libqhull)
 install(FILES ${libqhullr_HEADERS}    DESTINATION ${INCLUDE_INSTALL_DIR}/libqhull_r)
 install(FILES ${libqhullcpp_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/libqhullcpp)
-install(FILES html/qhull.man         DESTINATION ${MAN_INSTALL_DIR} RENAME qhull.1)
-install(FILES html/rbox.man          DESTINATION ${MAN_INSTALL_DIR} RENAME rbox.1)
-install(FILES ${doc_FILES}           DESTINATION ${DOC_INSTALL_DIR})
-install(DIRECTORY html/              DESTINATION ${DOC_INSTALL_DIR}/html)
-install(FILES src/Changes.txt        DESTINATION ${DOC_INSTALL_DIR}/src)
+# install(FILES html/qhull.man         DESTINATION ${MAN_INSTALL_DIR} RENAME qhull.1)
+# install(FILES html/rbox.man          DESTINATION ${MAN_INSTALL_DIR} RENAME rbox.1)
+# install(FILES ${doc_FILES}           DESTINATION ${DOC_INSTALL_DIR})
+# install(DIRECTORY html/              DESTINATION ${DOC_INSTALL_DIR}/html)
+# install(FILES src/Changes.txt        DESTINATION ${DOC_INSTALL_DIR}/src)
 
 add_custom_target(uninstall
     COMMENT "uninstall Qhull by deleting files in install_manifest.txt"
