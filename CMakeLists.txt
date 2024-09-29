@@ -756,7 +756,7 @@ install(FILES ${libqhullcpp_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/libqhull
 # install(DIRECTORY html/              DESTINATION ${DOC_INSTALL_DIR}/html)
 # install(FILES src/Changes.txt        DESTINATION ${DOC_INSTALL_DIR}/src)
 
-add_custom_target(uninstall
+add_custom_target(uninstall_qhull
     COMMENT "uninstall Qhull by deleting files in install_manifest.txt"
     COMMAND cat install_manifest.txt | tr -d \"\\r\" | xargs -r rm
 )
